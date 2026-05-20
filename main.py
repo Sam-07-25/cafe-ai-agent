@@ -3,11 +3,9 @@ from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv() # loads API key from .env file
-
 client = Groq(api_key=os.getenv("GROQ_API_KEY")) # connection to Groq's servers
 
 user_input = input("Ask something: ")
-
 response = client.chat.completions.create(
     model="llama-3.3-70b-versatile", # which model to use
     messages=[
