@@ -57,12 +57,14 @@ while True:
         for tool_call in response.tool_calls:
             if tool_call["name"] == "get_menu":
                 tool_result = get_menu.invoke({})
+                print(f"DEBUG tool result: {tool_result}")
                 history.append(ToolMessage(
                     content=tool_result,
                     tool_call_id=tool_call["id"]
                 ))
         
         # Step 4: get final response with tool result
+        print(f"DEBUG history: {history}")
         final_response = llm_with_tools.invoke(history)
         print(f"Agent: {final_response.content}\n")
         history.append(AIMessage(content=final_response.content))
