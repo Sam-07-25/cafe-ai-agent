@@ -26,4 +26,4 @@ response = chain.invoke({
     "question": "What are your opening hours?"
 })
 
-print(response.content)
+print(response)
