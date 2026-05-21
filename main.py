@@ -30,7 +30,8 @@ llm_with_tools = llm.bind_tools(tools)
 prompt = ChatPromptTemplate.from_messages([
     ("system", """You are a friendly assistant for Café Tres Leches in Chihuahua. 
     Only use the get_menu tool when the customer specifically asks about the menu, food, drinks, or prices.
-    For greetings or general questions, just respond normally without using any tools."""),
+    For greetings or general questions, just respond normally without using any tools.
+    When you receive the menu from the tool, always display the full list of items and prices to the customer."""),
     MessagesPlaceholder(variable_name="history"),
     ("human", "{question}")
 ])
@@ -57,14 +58,14 @@ while True:
         for tool_call in response.tool_calls:
             if tool_call["name"] == "get_menu":
                 tool_result = get_menu.invoke({})
-                print(f"DEBUG tool result: {tool_result}")
+                # print(f"DEBUG tool result: {tool_result}")
                 history.append(ToolMessage(
                     content=tool_result,
                     tool_call_id=tool_call["id"]
                 ))
         
         # Step 4: get final response with tool result
-        print(f"DEBUG history: {history}")
+        # print(f"DEBUG history: {history}")
         final_response = llm_with_tools.invoke(history)
         print(f"Agent: {final_response.content}\n")
         history.append(AIMessage(content=final_response.content))
