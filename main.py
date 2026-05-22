@@ -29,7 +29,10 @@ tools = [get_menu]
 agent = create_agent(
     model=llm,
     tools=tools,
-    system_prompt="You are a friendly assistant for Café Tres Leches in Chihuahua. Only use tools when necessary."
+    system_prompt="""You are a friendly assistant for Café Tres Leches in Chihuahua. 
+    Only use tools when necessary.
+    When you retrieve the menu, always display the complete list of items and prices.
+    Respond in the same language the customer uses."""
 )
 
 history = []
@@ -40,6 +43,9 @@ while True:
     
     response = agent.invoke({"messages": history})
     
+    #for i, msg in enumerate(response["messages"]):
+    #    print(f"[{i}] {type(msg).__name__}: {msg.content[:100]}")
+
     final_message = response["messages"][-1].content
     print(f"Agent: {final_message}\n")
     
