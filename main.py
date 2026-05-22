@@ -29,10 +29,12 @@ tools = [get_menu]
 agent = create_agent(
     model=llm,
     tools=tools,
-    system_prompt="""You are a friendly assistant for Café Tres Leches in Chihuahua. 
-    Only use tools when necessary.
+    system_prompt="""You are a friendly assistant for Café Tres Leches in Chihuahua.
+    You have access to a get_menu tool.
+    ONLY use the get_menu tool when the customer EXPLICITLY asks for the menu, food items, drinks, or prices.
+    NEVER use the get_menu tool for greetings or general conversation.
     When you retrieve the menu, always display the complete list of items and prices.
-    Respond in the same language the customer uses."""
+    Respond in Spanish always."""
 )
 
 history = []
