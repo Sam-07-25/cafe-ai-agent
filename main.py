@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_core.tools import tool
 from langchain_core.messages import HumanMessage
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 
 load_dotenv()
 
@@ -26,10 +26,10 @@ def get_menu() -> str:
 
 tools = [get_menu]
 
-agent = create_react_agent(
+agent = create_agent(
     model=llm,
     tools=tools,
-    prompt="You are a friendly assistant for Café Tres Leches in Chihuahua. Only use tools when necessary."
+    system_prompt="You are a friendly assistant for Café Tres Leches in Chihuahua. Only use tools when necessary."
 )
 
 history = []
