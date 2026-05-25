@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_core.tools import tool
 from langchain_core.messages import HumanMessage
-from langchain.agents import create_agent
+from langgraph.prebuilt import create_react_agent
 
 load_dotenv()
 
@@ -26,10 +26,10 @@ def get_menu() -> str:
 
 tools = [get_menu]
 
-agent = create_agent(
+agent = create_react_agent(
     model=llm,
     tools=tools,
-    system_prompt="""You are a friendly assistant for Café Tres Leches in Chihuahua.
+    prompt="""You are a friendly assistant for Café Tres Leches in Chihuahua.
     You have access to a get_menu tool.
     ONLY use the get_menu tool when the customer EXPLICITLY asks for the menu, food items, drinks, or prices.
     NEVER use the get_menu tool for greetings or general conversation.
@@ -44,9 +44,6 @@ while True:
     history.append(HumanMessage(content=user_input))
     
     response = agent.invoke({"messages": history})
-    
-    #for i, msg in enumerate(response["messages"]):
-    #    print(f"[{i}] {type(msg).__name__}: {msg.content[:100]}")
 
     final_message = response["messages"][-1].content
     print(f"Agent: {final_message}\n")
