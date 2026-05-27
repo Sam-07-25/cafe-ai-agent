@@ -1,17 +1,19 @@
 import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
-from langchain_core.tools import tool
+from langchain_core.tools import tool # used for tools
 from langchain_core.messages import HumanMessage
-from langgraph.prebuilt import create_react_agent
+from langgraph.prebuilt import create_react_agent # used to create react agent
 
-load_dotenv()
+load_dotenv() # loads environment variables from .env
 
+# builds groq-based llm
 llm = ChatGroq(
     api_key=os.getenv("GROQ_API_KEY"),
     model="llama-3.3-70b-versatile"
 )
 
+# retrieves menu
 @tool
 def get_menu() -> str:
     """Returns the cafe menu with items and prices."""
@@ -24,8 +26,9 @@ def get_menu() -> str:
     - Avocado toast: $75
     """
 
-tools = [get_menu]
+tools = [get_menu] # list of available tools
 
+# creates react agent using llm, tools, and specs
 agent = create_react_agent(
     model=llm,
     tools=tools,
@@ -37,15 +40,16 @@ agent = create_react_agent(
     Respond in Spanish always."""
 )
 
-history = []
+history = [] # conversation history
 
+# runs main interface
 while True:
     user_input = input("You: ")
-    history.append(HumanMessage(content=user_input))
+    history.append(HumanMessage(content=user_input)) # appends human message to the conversation history
     
-    response = agent.invoke({"messages": history})
+    response = agent.invoke({"messages": history}) # passes history to agent
 
-    final_message = response["messages"][-1].content
+    final_message = response["messages"][-1].content # retrieves last appended message
     print(f"Agent: {final_message}\n")
     
-    history = response["messages"]
+    history = response["messages"] # conversation history is updated
