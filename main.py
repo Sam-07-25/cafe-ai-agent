@@ -1,5 +1,5 @@
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv # used to load environment variables
 from langchain_groq import ChatGroq
 from langchain_core.tools import tool # used for tools
 from langchain_core.messages import HumanMessage
