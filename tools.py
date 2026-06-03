@@ -1,4 +1,5 @@
 from langchain_core.tools import tool # used for tools
+from reservations import load_reservations, save_reservations, delete_reservation
 
 @tool
 def get_menu() -> str:
@@ -109,6 +110,16 @@ def get_contact() -> str:
 @tool
 def make_reservation(name: str, date: str, time: str, size: int) -> str:
     """Makes a cafe reservation."""
+
+    reservations = load_reservations()
+    reservations.append({
+        "name": name,
+        "date": date,
+        "time": time,
+        "party_size": size
+    })
+    save_reservations(reservations)
+
     return f"""
     CAFÉ TRES LECHES — RESERVATION CONFIRMATION
 
@@ -116,6 +127,15 @@ def make_reservation(name: str, date: str, time: str, size: int) -> str:
     - Date: On {date}
     - Time: At {time}
     - Size: Party of {size}
+    """
+
+@tool
+def cancel_reservation(name: str, date: str) -> str:
+    """Cancels a cafe reservation."""
+
+    reservations = load_reservations()
+    return """
+
     """
 
 @tool
