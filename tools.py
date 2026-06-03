@@ -66,11 +66,11 @@ def get_menu() -> str:
 def get_hours() -> str:
     """Returns the cafe opening hours."""
     return """
-        CAFÉ TRES LECHES — OPENING HOURS
+    CAFÉ TRES LECHES — OPENING HOURS
 
-        Monday - Friday: 7:00 AM - 8:00 PM
-        Saturday: 8:00 AM - 9:00 PM
-        Sunday: 9:00 AM - 6:00 PM
+    Monday - Friday: 7:00 AM - 8:00 PM
+    Saturday: 8:00 AM - 9:00 PM
+    Sunday: 9:00 AM - 6:00 PM
     """
 
 @tool
@@ -95,12 +95,12 @@ def get_contact() -> str:
     return """
     CAFÉ TRES LECHES — CONTACT INFO
 
-    Phone: (915) 247-3860
-    Email: hello@cafetresleches.com
-    Website: www.cafetresleches.com
-    Instagram: @cafetresleches
-    Twitter/X: @cafetresleches
-    Facebook: Café Tres Leches El Paso
+    - Phone: (915) 247-3860
+    - Email: hello@cafetresleches.com
+    - Website: www.cafetresleches.com
+    - Instagram: @cafetresleches
+    - Twitter/X: @cafetresleches
+    - Facebook: Café Tres Leches El Paso
 
     For reservations call us, DM us on Instagram, or ask me to make it.
     For catering inquiries email us at catering@cafetresleches.com
@@ -110,18 +110,56 @@ def get_contact() -> str:
 def make_reservation(name: str, date: str, time: str, size: int) -> str:
     """Makes a cafe reservation."""
     return f"""
-
     CAFÉ TRES LECHES — RESERVATION CONFIRMATION
 
-    Name: {name}
-    Date: On {date}
-    Time: At {time}
-    Size: Party of {size}
+    - Name: {name}
+    - Date: On {date}
+    - Time: At {time}
+    - Size: Party of {size}
+    """
+
+@tool
+def get_reservation_policy() -> str:
+    """Returns the cafe reservation policy."""
+    return """
+    CAFÉ TRES LECHES — RESERVATION POLICY
+
+    - Reservations are available for parties of 2 to 12 guests.
+    - We accept reservations up to 30 days in advance.
+    - Reservations must be made at least 2 hours before the desired time.
+    - We hold reservations for 15 minutes past the booking time.
+      After that, the table may be released to walk-in guests.
+    - To cancel or modify a reservation, please contact us at least 
+      2 hours in advance by phone or Instagram DM.
+    - For parties of 8 or more, a valid credit card is required to hold 
+      the reservation. No charge is made unless there is a no-show.
+    - No-shows for parties of 8 or more will be charged $10 per person.
+    - Walk-ins are always welcome based on availability.
     """
 
 @tool
 def get_specials() -> str:
     """Returns the weekly or daily specials."""
     return """
-    
+    CAFÉ TRES LECHES — WEEKLY SPECIALS
+
+    --- TODAY'S FEATURED DRINK ---
+    - Lavender Honey Latte: $6.00
+
+    --- SEASONAL SPECIAL ---
+    - Horchata Cold Brew: $6.50
+
+    --- FOOD SPECIAL ---
+    - Tres Leches French Toast: $11.00
+
+    --- HAPPY HOUR (Mon - Fri, 2:00 PM - 4:00 PM) ---
+    - 20% off all frappés
+    - $1 off any pastry with the purchase of a drink
+
+    --- WEEKEND BRUNCH SPECIAL (Sat - Sun, 9:00 AM - 12:00 PM) ---
+    - Brunch Combo: Any breakfast item + any drink for $14.00
+    (saves up to $3.50)
+
+    Specials rotate weekly. Follow us on Instagram @cafetresleches 
+    to stay up to date!
     """
