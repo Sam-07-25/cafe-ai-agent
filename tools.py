@@ -109,8 +109,14 @@ def get_contact() -> str:
 @tool
 def make_reservation(name: str, date: str, time: str, size: int) -> str:
     """Makes a cafe reservation."""
-    return """
-    
+    return f"""
+
+    CAFÉ TRES LECHES — RESERVATION CONFIRMATION
+
+    Name: {name}
+    Date: On {date}
+    Time: At {time}
+    Size: Party of {size}
     """
 
 @tool
