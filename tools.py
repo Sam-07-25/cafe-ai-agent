@@ -109,7 +109,7 @@ def get_contact() -> str:
 
 @tool
 def make_reservation(name: str, date: str, time: str, size: int) -> str:
-    """Makes a cafe reservation."""
+    """Makes a new cafe reservation."""
 
     reservations = load_reservations()
     reservations.append({
@@ -131,12 +131,14 @@ def make_reservation(name: str, date: str, time: str, size: int) -> str:
 
 @tool
 def cancel_reservation(name: str, date: str) -> str:
-    """Cancels a cafe reservation."""
+    """Cancels an existing cafe reservation."""
 
     reservations = load_reservations()
-    return """
-
-    """
+    success = reservations.delete_reservation(name, date)
+    if success:
+        return f"Reservation for {name} on {date} was successfully cancelled."
+    else:
+        return f"No reservation found for {name} on {date}."
 
 @tool
 def get_reservation_policy() -> str:
@@ -159,7 +161,7 @@ def get_reservation_policy() -> str:
 
 @tool
 def get_specials() -> str:
-    """Returns the weekly or daily specials."""
+    """Returns the weekly or daily specials with categories, items, prices, and dates."""
     return """
     CAFÉ TRES LECHES — WEEKLY SPECIALS
 
