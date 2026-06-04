@@ -134,7 +134,7 @@ def cancel_reservation(name: str, date: str) -> str:
     """Cancels an existing cafe reservation."""
 
     reservations = load_reservations()
-    success = reservations.delete_reservation(name, date)
+    success = delete_reservation(name, date)
     if success:
         return f"Reservation for {name} on {date} was successfully cancelled."
     else:
