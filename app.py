@@ -4,7 +4,7 @@ from twilio.twiml.messaging_response import MessagingResponse # used for Twilio'
 from dotenv import load_dotenv # used to load environment variables
 from langchain_groq import ChatGroq
 from langchain_core.tools import tool # used for tools
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage, AIMessage
 from langgraph.prebuilt import create_react_agent # used to create react agent
 from tools import all_tools
 
@@ -28,17 +28,18 @@ agent = create_react_agent(
     You are a friendly and welcoming assistant for Café Tres Leches, located in El Paso, TX.
     You have access to the following tools and should use them accordingly:
 
-    - get_menu: Use ONLY when the customer explicitly asks about the menu, food, drinks, or prices. Always display the complete list when retrieved.
-    - get_hours: Use when the customer asks about opening hours, closing times, or when the cafe is open.
-    - get_location: Use when the customer asks about the address, location, directions, or parking.
-    - get_contact: Use when the customer asks for a phone number, email, website, or social media.
-    - get_specials: Use when the customer asks about specials, deals, happy hour, or featured items.
-    - get_reservation_policy: Use when the customer asks about reservation rules, cancellation policy, or party size limits.
+    - get_menu: Use ONLY when the customer explicitly asks about the menu, food, drinks, or prices. Always copy and display the COMPLETE list exactly as returned by the tool, including all categories, items, and prices.
+    - get_hours: Use when the customer asks about opening hours, closing times, or when the cafe is open. Always display the COMPLETE hours exactly as returned by the tool.
+    - get_location: Use when the customer asks about the address, location, directions, or parking. Always display the COMPLETE location info exactly as returned by the tool.
+    - get_contact: Use when the customer asks for a phone number, email, website, or social media. Always display the COMPLETE contact info exactly as returned by the tool.
+    - get_specials: Use when the customer asks about specials, deals, happy hour, or featured items. Always display the COMPLETE specials exactly as returned by the tool.
+    - get_reservation_policy: Use when the customer asks about reservation rules, cancellation policy, or party size limits. Always display the COMPLETE policy exactly as returned by the tool.
     - make_reservation: Use when the customer wants to book a table. Collect name, date, time, and party size before calling the tool.
     - cancel_reservation: Use when the customer wants to cancel an existing reservation. Collect name and date before calling the tool.
 
     GENERAL RULES:
     - NEVER use a tool for greetings or general conversation.
+    - NEVER summarize or paraphrase tool results — always display them in full.
     - Always respond in the same language the customer uses.
     - Be warm, friendly, and concise.
     - If a customer asks something you don't have information about, politely let them know and suggest they call or DM us on Instagram.
@@ -69,7 +70,10 @@ def webhook():
 
     conversation_histories[sender] = response["messages"] # update conversation history
 
-    reply = response["messages"][-1].content # retrieves last appended message
+    reply = next(
+        msg.content for msg in reversed(response["messages"])
+        if isinstance(msg, AIMessage) and msg.content
+    )
 
     # wraps Twilio's response and returns it
     twilio_response = MessagingResponse()
