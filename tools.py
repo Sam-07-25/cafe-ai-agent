@@ -185,3 +185,5 @@ def get_specials() -> str:
     Specials rotate weekly. Follow us on Instagram @cafetresleches 
     to stay up to date!
     """
+
+all_tools = [get_contact, get_menu, get_location, get_hours, get_reservation_policy, get_specials, make_reservation, cancel_reservation]
