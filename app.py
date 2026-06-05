@@ -6,7 +6,7 @@ from langchain_groq import ChatGroq
 from langchain_core.tools import tool # used for tools
 from langchain_core.messages import HumanMessage
 from langgraph.prebuilt import create_react_agent # used to create react agent
-from tools import get_menu, get_hours, get_location, get_contact, get_menu, make_reservation, cancel_reservation, get_reservation_policy, get_specials
+from tools import all_tools
 
 load_dotenv() # loads environment variables from .env
 
@@ -31,7 +31,7 @@ def get_menu() -> str:
     - Avocado toast: $75
     """
 
-tools = [get_menu] # list of available tools
+tools = all_tools # list of available tools
 
 # creates react agent using llm, tools, and specs
 agent = create_react_agent(
