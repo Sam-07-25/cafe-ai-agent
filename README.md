@@ -35,7 +35,6 @@ I wanted to learn more about building AI agents, so I taught myself the core con
     - TWILIO_ACCOUNT_SID
     - TWILIO_AUTH_TOKEN
     - TWILIO_WHATSAPP_NUMBER
-
 - Run the Flask server (python app.py)
 - Expose the server (using VS Code port forwarding or ngrok)
 - Configure Twilio (add the public URL + /webhook to the Twilio sandbox settings)
