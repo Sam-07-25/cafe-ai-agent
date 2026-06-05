@@ -1,5 +1,4 @@
 import os
-import warnings
 from flask import Flask, request # used for Flask web server
 from twilio.twiml.messaging_response import MessagingResponse # used for Twilio's response format
 from dotenv import load_dotenv # used to load environment variables
@@ -8,8 +7,6 @@ from langchain_core.tools import tool # used for tools
 from langchain_core.messages import HumanMessage, AIMessage
 from langgraph.prebuilt import create_react_agent # used to create react agent
 from tools import all_tools
-
-warnings.filterwarnings("ignore")
 
 load_dotenv() # loads environment variables from .env
 
