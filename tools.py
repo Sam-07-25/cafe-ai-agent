@@ -110,8 +110,6 @@ def get_contact() -> str:
 @tool
 def make_reservation(name: str, date: str, time: str, size: int, phone: int) -> str:
     """Makes a new cafe reservation."""
-    policy = get_reservation_policy()
-    hours = get_hours()
     reservations = load_reservations()
     reservations.append({
         "name": name,
