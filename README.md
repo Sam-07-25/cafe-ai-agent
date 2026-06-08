@@ -41,7 +41,16 @@ I wanted to learn more about building AI agents, so I taught myself the core con
 - Join the Twilio sandbox (send the join message from WhatsApp to the sandbox number)
 
 ## Project Structure
-A quick overview of what each file does.
+- app.py: Flask server and webhook logic (main)
+- requirements.txt: project dependencies
+- reservations.py: reservations database logic
+- tools.py: tools logic for agent to use
 
 ## Future Improvements
-What you plan to add next.
+- Deploy to a cloud server so it runs 24/7 without a laptop
+- Connect to a real database instead of a JSON file
+- Add payment integration
+- Make it a reusable template for any small business
+- Switch from Groq to Anthropic's API for production reliability
+- Offer this as a service to real local businesses
+- Build a simple onboarding flow where a business owner can customize the agent without touching code
