@@ -45,6 +45,7 @@ I wanted to learn more about building AI agents, so I taught myself the core con
 - requirements.txt: project dependencies
 - reservations.py: reservations database logic
 - tools.py: tools logic for agent to use
+- reservations.json: booked reservations database
 
 ## Future Improvements
 - Deploy to a cloud server so it runs 24/7 without a laptop
