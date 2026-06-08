@@ -13,13 +13,14 @@ def save_reservations(reservations: list) -> None:
     with open(RESERVATIONS_FILE, "w") as f:
         json.dump(reservations, f, indent=2)
 
-def delete_reservation(name: str, date: str) -> bool:
+def delete_reservation(name: str, date: str, time: str) -> bool:
     reservations = load_reservations()
     original_count = len(reservations)
     reservations = [
         r for r in reservations
         if not (r["name"].lower() == name.lower() and 
-                r["date"].lower() == date.lower())
+                r["date"].lower() == date.lower() and
+                r["time"].lower() == time.lower())
     ]
     if len(reservations) == original_count:
         return False  # nothing was deleted

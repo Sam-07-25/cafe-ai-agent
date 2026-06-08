@@ -108,7 +108,7 @@ def get_contact() -> str:
     """
 
 @tool
-def make_reservation(name: str, date: str, time: str, size: int) -> str:
+def make_reservation(name: str, date: str, time: str, size: int, phone: int) -> str:
     """Makes a new cafe reservation."""
 
     reservations = load_reservations()
@@ -116,7 +116,8 @@ def make_reservation(name: str, date: str, time: str, size: int) -> str:
         "name": name,
         "date": date,
         "time": time,
-        "party_size": size
+        "party_size": size,
+        "phone_number": phone
     })
     save_reservations(reservations)
 
@@ -130,11 +131,11 @@ def make_reservation(name: str, date: str, time: str, size: int) -> str:
     """
 
 @tool
-def cancel_reservation(name: str, date: str) -> str:
+def cancel_reservation(name: str, date: str, time: str) -> str:
     """Cancels an existing cafe reservation."""
 
     reservations = load_reservations()
-    success = delete_reservation(name, date)
+    success = delete_reservation(name, date, time)
     if success:
         return f"Reservation for {name} on {date} was successfully cancelled."
     else:
