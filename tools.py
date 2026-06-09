@@ -1,5 +1,6 @@
 from langchain_core.tools import tool # used for tools
 from reservations import load_reservations, save_reservations, delete_reservation
+from datetime import datetime
 
 @tool
 def get_menu() -> str:
@@ -110,6 +111,17 @@ def get_contact() -> str:
 @tool
 def make_reservation(name: str, date: str, time: str, size: str, phone: str) -> str:
     """Makes a new cafe reservation."""
+    operation_hours = {
+        "Mon - Fri": (datetime.strptime("7:00 AM", "%I:%M %p"), datetime.strptime("8:00 PM", "%I:%M %p")),
+        "Sat": (datetime.strptime("8:00 AM", "%I:%M %p"), datetime.strptime("9:00 PM", "%I:%M %p")),
+        "Sun": (datetime.strptime("9:00 AM", "%I:%M %p"), datetime.strptime("6:00 PM", "%I:%M %p"))
+    }
+    if size < 2 or size > 12:
+        return f"""
+        We're sorry, we can't book this reservation.
+        According to our policy, reservations are available for parties of 2 to 12 guests.
+        """
+    
     reservations = load_reservations()
     reservations.append({
         "name": name,
