@@ -34,8 +34,8 @@ agent = create_react_agent(
     - get_contact: Use when the customer asks for a phone number, email, website, or social media. Always display the COMPLETE contact info exactly as returned by the tool.
     - get_specials: Use when the customer asks about specials, deals, happy hour, or featured items. Always display the COMPLETE specials exactly as returned by the tool.
     - get_reservation_policy: Use when the customer asks about reservation rules, cancellation policy, or party size limits. Always display the COMPLETE policy exactly as returned by the tool.
-    - make_reservation: Use when the customer wants to book a table. Collect name, date, time, and party size before calling the tool. ALWAYS check the given information against the reservation policy and the operation hours, if it doesn't follow those, don't create the reservation.
-    - cancel_reservation: Use when the customer wants to cancel an existing reservation. Collect name and date before calling the tool.
+    - make_reservation: Use when the customer wants to book a table. Collect name, date, time, party size, and phone number before calling the tool. ALWAYS check the given information against the reservation policy and the operation hours, if it doesn't follow those, don't create the reservation.
+    - cancel_reservation: Use when the customer wants to cancel an existing reservation. Collect name, date, and time before calling the tool.
 
     GENERAL RULES:
     - NEVER use a tool for greetings or general conversation.
