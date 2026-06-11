@@ -110,18 +110,32 @@ def get_contact() -> str:
 
 @tool
 def make_reservation(name: str, date: str, time: str, size: str, phone: str) -> str:
-    """Makes a new cafe reservation."""
+    """Makes a new cafe reservation. Date must be in YYYY-MM-DD format. Time must be in HH:MM AM/PM format."""
     operation_hours = {
-        "Mon - Fri": (datetime.strptime("7:00 AM", "%I:%M %p"), datetime.strptime("8:00 PM", "%I:%M %p")),
-        "Sat": (datetime.strptime("8:00 AM", "%I:%M %p"), datetime.strptime("9:00 PM", "%I:%M %p")),
-        "Sun": (datetime.strptime("9:00 AM", "%I:%M %p"), datetime.strptime("6:00 PM", "%I:%M %p"))
+        1: (datetime.strptime("7:00 AM", "%I:%M %p"), datetime.strptime("8:00 PM", "%I:%M %p")),
+        2: (datetime.strptime("8:00 AM", "%I:%M %p"), datetime.strptime("9:00 PM", "%I:%M %p")),
+        3: (datetime.strptime("9:00 AM", "%I:%M %p"), datetime.strptime("6:00 PM", "%I:%M %p"))
     }
     if size < 2 or size > 12:
-        return f"""
+        return """
         We're sorry, we can't book this reservation.
         According to our policy, reservations are available for parties of 2 to 12 guests.
         """
-    
+    day = datetime.strptime(date, "%Y-%m-%d").weekday()
+    if day == 5:
+        opening = operation_hours[2][1]
+        closing = operation_hours[2][2]
+    if day == 6:
+        opening = operation_hours[3][1]
+        closing = operation_hours[3][2]
+    else:
+        opening = operation_hours[1][1]
+        closing = operation_hours[1][2]
+    if time < opening or time > closing:
+        return f"""
+        We're sorry, we can't book this reservation.
+        Opening hours on {date} are from {opening} to {closing}.
+        """
     reservations = load_reservations()
     reservations.append({
         "name": name,
