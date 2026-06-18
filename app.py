@@ -53,33 +53,40 @@ conversation_histories = {} # stores conversation history per user
 # run after post request
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    # extracts sender's message and phone number
-    incoming_msg = request.values.get("Body", "")
-    sender = request.values.get("From", "")
+    try:
+        # extracts sender's message and phone number
+        incoming_msg = request.values.get("Body", "")
+        sender = request.values.get("From", "")
 
-    if sender not in conversation_histories:
-        conversation_histories[sender] = []
+        if sender not in conversation_histories:
+            conversation_histories[sender] = []
 
-    conversation_histories[sender].append(
-        HumanMessage(content=incoming_msg)
-    )
+        conversation_histories[sender].append(
+            HumanMessage(content=incoming_msg)
+        )
 
-    # pass history to agent
-    response = agent.invoke({
-        "messages": conversation_histories[sender]
-    })
+        # pass history to agent
+        response = agent.invoke({
+            "messages": conversation_histories[sender]
+        })
 
-    conversation_histories[sender] = response["messages"] # update conversation history
+        conversation_histories[sender] = response["messages"] # update conversation history
 
-    reply = next(
-        msg.content for msg in reversed(response["messages"])
-        if isinstance(msg, AIMessage) and msg.content
-    )
+        reply = next(
+            msg.content for msg in reversed(response["messages"])
+            if isinstance(msg, AIMessage) and msg.content
+        )
 
-    # wraps Twilio's response and returns it
-    twilio_response = MessagingResponse()
-    twilio_response.message(reply)
-    return str(twilio_response)
+        # wraps Twilio's response and returns it
+        twilio_response = MessagingResponse()
+        twilio_response.message(reply)
+        return str(twilio_response)
+    except Exception as e:
+        print(f"ERROR: {e}")
+        import traceback
+        traceback.print_exc()
+        return "error", 500
+    
 
 # starts Flask server
 if __name__ == "__main__":
