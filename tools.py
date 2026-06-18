@@ -109,14 +109,14 @@ def get_contact() -> str:
     """
 
 @tool
-def make_reservation(name: str, date: str, time: str, size: str, phone: str) -> str:
+def make_reservation(name: str, date: str, time: str, size, phone: str) -> str:
     """Makes a new cafe reservation. Date must be in YYYY-MM-DD format. Time must be in HH:MM AM/PM format."""
     operation_hours = {
         1: (datetime.strptime("7:00 AM", "%I:%M %p"), datetime.strptime("8:00 PM", "%I:%M %p")),
         2: (datetime.strptime("8:00 AM", "%I:%M %p"), datetime.strptime("9:00 PM", "%I:%M %p")),
         3: (datetime.strptime("9:00 AM", "%I:%M %p"), datetime.strptime("6:00 PM", "%I:%M %p"))
     }
-    if size < 2 or size > 12:
+    if int(size) < 2 or int(size) > 12:
         return """
         We're sorry, we can't book this reservation.
         According to our policy, reservations are available for parties of 2 to 12 guests.
