@@ -53,5 +53,4 @@ I wanted to learn more about building AI agents, so I taught myself the core con
 - Add payment integration
 - Make it a reusable template for any small business
 - Switch from Groq to Anthropic's API for production reliability
-- Offer this as a service to real local businesses
 - Build a simple onboarding flow where a business owner can customize the agent without touching code
