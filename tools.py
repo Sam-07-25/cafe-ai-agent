@@ -125,13 +125,14 @@ def make_reservation(name: str, date: str, time: str, size, phone: str) -> str:
     if day == 5:
         opening = operation_hours[2][1]
         closing = operation_hours[2][2]
-    if day == 6:
+    elif day == 6:
         opening = operation_hours[3][1]
         closing = operation_hours[3][2]
     else:
         opening = operation_hours[1][1]
         closing = operation_hours[1][2]
-    if time < opening or time > closing:
+    time_obj = datetime.strptime(time, "%I:%M %p")
+    if time_obj < opening or time_obj > closing:
         return f"""
         We're sorry, we can't book this reservation.
         Opening hours on {date} are from {opening} to {closing}.
