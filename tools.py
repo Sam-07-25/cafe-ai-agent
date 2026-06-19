@@ -109,7 +109,7 @@ def get_contact() -> str:
     """
 
 @tool
-def make_reservation(name: str, date: str, time: str, size, phone: str) -> str:
+def make_reservation(name: str, date: str, time: str, size: str, phone: str) -> str:
     """Makes a new cafe reservation. Date must be in YYYY-MM-DD format. Time must be in HH:MM AM/PM format."""
     operation_hours = {
         1: (datetime.strptime("7:00 AM", "%I:%M %p"), datetime.strptime("8:00 PM", "%I:%M %p")),
