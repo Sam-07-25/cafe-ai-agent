@@ -23,7 +23,7 @@ I wanted to learn more about building AI agents, so I taught myself the core con
 - Groq (LLaMA 3.3 70B)
 - Flask
 - Twilio
-- WhatsApp Business API
+- WhatsApp
 - ngrok / VS Code Port Forwarding
 
 ## How to Run
